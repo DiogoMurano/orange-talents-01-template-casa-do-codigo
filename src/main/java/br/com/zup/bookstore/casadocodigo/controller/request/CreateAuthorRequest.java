@@ -1,5 +1,8 @@
 package br.com.zup.bookstore.casadocodigo.controller.request;
 
+import br.com.zup.bookstore.casadocodigo.model.Author;
+import br.com.zup.bookstore.casadocodigo.validator.UniqueValue;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -9,6 +12,7 @@ public class CreateAuthorRequest {
 
     @NotEmpty
     @Email
+    @UniqueValue(domainClass = Author.class, fieldName = "email")
     private String email;
 
     @NotBlank

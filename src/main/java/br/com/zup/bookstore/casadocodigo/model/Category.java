@@ -2,12 +2,10 @@ package br.com.zup.bookstore.casadocodigo.model;
 
 import br.com.zup.bookstore.casadocodigo.controller.request.CategoryRequest;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+@Entity
 public class Category {
 
     @Id
