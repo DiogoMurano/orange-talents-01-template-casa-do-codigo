@@ -1,9 +1,6 @@
 package br.com.zup.bookstore.casadocodigo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -15,20 +12,25 @@ import java.util.Objects;
 public class Author {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
     private Long id;
 
     @Email
     @NotEmpty
+    @Column(unique = true, nullable = false)
     private String email;
 
     @NotBlank
+    @Column(nullable = false)
     private String name;
 
     @NotBlank
     @Size(max = 400)
+    @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public Author(String email, String name, String description) {

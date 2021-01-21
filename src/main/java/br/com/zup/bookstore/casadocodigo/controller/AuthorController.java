@@ -33,7 +33,7 @@ public class AuthorController {
         Optional<Author> optional = authorRepository.findByEmail(email);
 
         if(optional.isPresent()) {
-            throw new ValidationException(email + " already belongs to a registered author.");
+            throw new ValidationException(String.format("%s already belongs to a registered author.", email));
         }
 
         Author author = new Author(email, request.getName(), request.getDescription());
