@@ -1,6 +1,6 @@
 package br.com.zup.bookstore.casadocodigo.model;
 
-import br.com.zup.bookstore.casadocodigo.controller.request.CategoryRequest;
+import br.com.zup.bookstore.casadocodigo.controller.request.CreateCategoryRequest;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -20,7 +20,7 @@ public class Category {
     public Category() {
     }
 
-    public Category(CategoryRequest request) {
+    public Category(CreateCategoryRequest request) {
         this.name = request.getName();
     }
 

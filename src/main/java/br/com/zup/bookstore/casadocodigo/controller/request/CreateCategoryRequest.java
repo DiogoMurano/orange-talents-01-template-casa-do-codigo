@@ -5,7 +5,7 @@ import br.com.zup.bookstore.casadocodigo.validator.UniqueValue;
 
 import javax.validation.constraints.NotBlank;
 
-public class CategoryRequest {
+public class CreateCategoryRequest {
 
     @NotBlank
     @UniqueValue(domainClass = Category.class, fieldName = "name")
