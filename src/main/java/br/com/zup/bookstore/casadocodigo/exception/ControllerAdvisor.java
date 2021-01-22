@@ -12,17 +12,10 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.lang.reflect.MalformedParametersException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
-
-    @ExceptionHandler(MalformedParametersException.class)
-    public ResponseEntity<ErrorResponse> handleMalformedParametersException(MalformedParametersException e) {
-        return ResponseEntity.badRequest().body(new ErrorResponse(HttpStatus.BAD_REQUEST, e.getMessage()));
-    }
 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<ErrorResponse> handleResponseStatusException(ResponseStatusException e) {

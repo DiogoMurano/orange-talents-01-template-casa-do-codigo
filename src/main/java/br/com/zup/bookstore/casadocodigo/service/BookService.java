@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.lang.reflect.MalformedParametersException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,13 +38,13 @@ public class BookService {
         Optional<Author> optionalAuthor = authorRepository.findById(request.getAuthorId());
 
         if (optionalAuthor.isEmpty()) {
-            throw new MalformedParametersException("Informed author was not found.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Informed author was not found.");
         }
 
         Optional<Category> optionalCategory = categoryRepository.findById(request.getCategoryId());
 
         if (optionalCategory.isEmpty()) {
-            throw new MalformedParametersException("Informed category was not found.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Informed category was not found.");
         }
 
         Book book = new Book(request, optionalAuthor.get(), optionalCategory.get());
