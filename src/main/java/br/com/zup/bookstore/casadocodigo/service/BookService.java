@@ -2,6 +2,7 @@ package br.com.zup.bookstore.casadocodigo.service;
 
 import br.com.zup.bookstore.casadocodigo.controller.request.CreateBookRequest;
 import br.com.zup.bookstore.casadocodigo.controller.response.BookResponse;
+import br.com.zup.bookstore.casadocodigo.controller.response.DetailedBookResponse;
 import br.com.zup.bookstore.casadocodigo.model.Author;
 import br.com.zup.bookstore.casadocodigo.model.Book;
 import br.com.zup.bookstore.casadocodigo.model.Category;
@@ -9,7 +10,9 @@ import br.com.zup.bookstore.casadocodigo.repository.AuthorRepository;
 import br.com.zup.bookstore.casadocodigo.repository.BookRepository;
 import br.com.zup.bookstore.casadocodigo.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.lang.reflect.MalformedParametersException;
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public BookResponse createNewBook(CreateBookRequest request) {
+    public DetailedBookResponse createNewBook(CreateBookRequest request) {
         Optional<Author> optionalAuthor = authorRepository.findById(request.getAuthorId());
 
         if (optionalAuthor.isEmpty()) {
@@ -48,7 +51,7 @@ public class BookService {
         Book book = new Book(request, optionalAuthor.get(), optionalCategory.get());
         bookRepository.save(book);
 
-        return new BookResponse(book);
+        return new DetailedBookResponse(book);
     }
 
     public List<BookResponse> listAllBooks() {
@@ -58,6 +61,17 @@ public class BookService {
         iterator.forEach(list::add);
 
         return list.stream().map(BookResponse::new).collect(Collectors.toList());
+    }
+
+    public DetailedBookResponse findById(Long id) {
+        Optional<Book> optional = bookRepository.findById(id);
+
+        if (optional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "book not found.");
+        }
+
+        Book book = optional.get();
+        return new DetailedBookResponse(book);
     }
 
 }

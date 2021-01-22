@@ -10,9 +10,14 @@ public class ErrorResponse {
     private HttpStatus status;
 
     @JsonFormat(pattern = "dd/MM/yyyy - HH:mm")
-    private LocalDateTime dateTime;
+    private LocalDateTime dateTime = LocalDateTime.now();
 
     private String message;
+
+    public ErrorResponse(HttpStatus status, String message) {
+        this.status = status;
+        this.message = message;
+    }
 
     public HttpStatus getStatus() {
         return status;

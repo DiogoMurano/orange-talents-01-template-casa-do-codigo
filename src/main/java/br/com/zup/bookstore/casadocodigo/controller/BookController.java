@@ -2,6 +2,7 @@ package br.com.zup.bookstore.casadocodigo.controller;
 
 import br.com.zup.bookstore.casadocodigo.controller.request.CreateBookRequest;
 import br.com.zup.bookstore.casadocodigo.controller.response.BookResponse;
+import br.com.zup.bookstore.casadocodigo.controller.response.DetailedBookResponse;
 import br.com.zup.bookstore.casadocodigo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,13 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<BookResponse> createNewBook(@RequestBody @Valid CreateBookRequest request) {
+    public ResponseEntity<DetailedBookResponse> createNewBook(@RequestBody @Valid CreateBookRequest request) {
         return ResponseEntity.ok(bookService.createNewBook(request));
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<DetailedBookResponse> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(bookService.findById(id));
     }
 
     @GetMapping

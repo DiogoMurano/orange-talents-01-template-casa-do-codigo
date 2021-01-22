@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class BookResponse {
+public class DetailedBookResponse {
 
     private String title;
 
@@ -23,7 +23,11 @@ public class BookResponse {
     @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate publishDate;
 
-    public BookResponse(Book book) {
+    private AuthorResponse author;
+
+    private CategoryResponse category;
+
+    public DetailedBookResponse(Book book) {
         this.title = book.getTitle();
         this.resume = book.getResume();
         this.summary = book.getSummary();
@@ -31,6 +35,8 @@ public class BookResponse {
         this.pages = book.getPages();
         this.isbn = book.getIsbn();
         this.publishDate = book.getPublishDate();
+        this.author = new AuthorResponse(book.getAuthor());
+        this.category = new CategoryResponse(book.getCategory());
     }
 
     public String getTitle() {
@@ -61,4 +67,11 @@ public class BookResponse {
         return publishDate;
     }
 
+    public AuthorResponse getAuthor() {
+        return author;
+    }
+
+    public CategoryResponse getCategory() {
+        return category;
+    }
 }
