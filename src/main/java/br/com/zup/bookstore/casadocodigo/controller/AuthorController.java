@@ -25,7 +25,7 @@ public class AuthorController {
     }
 
     @PostMapping
-    public ResponseEntity<AuthorResponse> createNewAuthor(@RequestBody @Valid CreateAuthorRequest request) {
+    public synchronized ResponseEntity<AuthorResponse> createNewAuthor(@RequestBody @Valid CreateAuthorRequest request) {
         Author author = new Author(request.getEmail(), request.getName(), request.getDescription());
         authorRepository.save(author);
 

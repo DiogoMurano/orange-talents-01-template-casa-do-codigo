@@ -23,6 +23,10 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
+        if (value == null) {
+            return true;
+        }
+
         Query query = entityManager.createQuery("SELECT 1 FROM " + clazz.getName() + " WHERE " + attribute + "=:value");
         query.setParameter("value", value);
 

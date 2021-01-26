@@ -28,6 +28,10 @@ public class State {
     public State() {
     }
 
+    public boolean sameCountry(Country country) {
+        return country.equals(this.country);
+    }
+
     public Long getId() {
         return id;
     }

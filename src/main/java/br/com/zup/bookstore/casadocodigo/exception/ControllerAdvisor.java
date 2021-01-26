@@ -29,8 +29,9 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         List<ObjectError> errors = ex.getBindingResult().getAllErrors();
         ObjectError objectError = errors.stream().findFirst().orElse(null);
 
-        ErrorResponse response = new ErrorResponse(HttpStatus.BAD_REQUEST, objectError != null ? objectError
-                .getDefaultMessage() : "Some of the parameters sent were rejected.");
+        ErrorResponse response = new ErrorResponse(HttpStatus.BAD_REQUEST, objectError != null && objectError
+                .getDefaultMessage() != null ? objectError.getDefaultMessage() :
+                "Some of the parameters sent were rejected.");
 
         return ResponseEntity.badRequest().body(response);
     }
